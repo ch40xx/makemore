@@ -229,7 +229,70 @@ for w in words:
 		
 		print(f"{ch1},{ch2} : {prob=:.4f}")
 ```
+ 
+ This lets us measure what each bigram  has as probability. and for a good model we aim for each probability to be as high as `1.0`. measuring and checking for each of the bi-grams  probability wouldn't be so efficient so we need some thing that can account for the whole probability of every bigram.
+ 
+ [[Maximum Likelihood Estimation]] this is something that is used for statistical modeling and what it says is we can use it for estimating the parameters of a probability distribution by maximizing a likelihood function.
 
+Usually they multiply each probability to come on to a likelihood number.
+ 
+`MLE = P(.e) x P(em) x P(mm) x P(ma) x P(a.)`
 
+this becomes a tiny number across the dataset *as the probabilities are around 0.00..* . so we usually take the logarithmic value of this probability.  
 
+`log(MLE)`
 
+This is now then called a log-likelihood. our goal is to maximize its same as before with the `MLE` calculation as it is a [[Monotonic Function]] (it preserves order).
+
+Another point to note is: 
+
+`log(MLE) = P(.e) + P(em) + P(mm) + P(ma) + P(a.)`
+as 
+`log(a*b*c) = a + b + c`
+
+#### Logarithmic Likelihood
+
+The log function will output in a negative value as our limit is from 0 to 1 (probability).
+
+![[Pasted image 20260418153826.png]]
+
+When the probability is 0 its log will be `-inf`.
+
+This is fine but the sentiment of the loss function is always to **reduce** the loss to be zero.
+
+	- RECAP
+	  
+	We want to maximize the likelihood as every probability should and likelihood is just the product of every probabilty (so we want it closest to '1.0').
+		
+	We also want to maximize the loglikelihood which is '0.0'. Since we are working within the range of 0 to 1 as probability allows our maximum value would be log(1) = 0 and our lowest value would be log(0) = -inf. 
+		 
+	Since, we are maximizing the loglikelihood in other words we can see it as a "value of loss" cause we want it to be around 0 which lets us conclude the model to be perfect.
+		 
+	By the semantics of reducing loss we want something easier to comphrehend like if we go from -4 loss to 0 loss we are maximizing loss just because we are stuck with our log's output range as mathematically we are adding to the loss but technically we are reducting loss.
+		 
+		A negative log likelihood fixes this semantical confusion. This converts values from our previous example of 4 loss to 0 loss we are reducing loss as we are no longer stuck with the sign issue and mathematically and technically we are reducing loss.
+
+So, **Negative Log Likelihood** is presented. 
+
+Sometimes the negative log likelihood is a higher number because the probability is very lowly assigned to each bigram, this leads to a high negative value output  from the log function. In this case we normalize it by using the average of the negative log likely hood by counting the number of bi-grams.
+
+```python
+log_likelihood = 0.0
+n = 0
+for w in words:
+	chs = ['.'] + list(w) + ['.']
+	for ch1,ch2 in zip(chs,chs[1:]):
+		ix1 = stoi[ch1]
+		ix2 = stoi[ch2]
+		prob = P[ix1,ix2]
+		n += 1
+		log_likelihood += torch.log(prob)
+
+print(f"{log_likelihood=:.4f}")
+nll = -log_likelihood
+print(f"Negative LL = {nll}")
+Average_NLL = nll/n
+print(f"{Average_NLL=}")
+```
+
+This concludes the bigram approach through a statistical model.

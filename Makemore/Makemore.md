@@ -29,10 +29,10 @@ The total number of frequencies can help us determine if a new pattern is likely
 -  M being followed by M  again is also possible.
 - M being followed by 'Y' hasn't been mentioned yet but they aren't impossible its just they don't occur frequently. 
 
-But here you go a new name 'Emmy' has been generated using just a [[Bi-gram Model]].
+But here you go a new name 'Emmy' has been generated using just a [[Bigram Model (Statistical Model)]].
 
-
-
+Statistical models are more focused for interpretability, causal analysis, and structured data, which makes them less ideal for generative tasks like name creation. They do offer excellent transparency and work well with small datasets, they often fail to model the complex sequential patterns needed for fluent, realistic names. 
+Deep learning approaches, on the other hand, are far more effective at automatically discovering intricate linguistic structures, resulting in significantly better generation quality. So, here we take a step towards [[Bigram Modeling (Neural Networks) ]]
 
 
 
