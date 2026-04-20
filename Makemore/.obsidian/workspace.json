@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "ab03edbbedd689bd",
+        "id": "0b66adc04c987823",
         "type": "tabs",
         "children": [
           {
-            "id": "6d08f4fcdfee6b25",
+            "id": "4652d18e10e54549",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Bigram Modeling (Neural Networks).md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Bigram Modeling (Neural Networks)"
+              "title": "New tab"
             }
           }
         ]
@@ -78,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "453388aa38d489dc",
@@ -183,16 +180,16 @@
       "bases:Create new base": false
     }
   },
-  "active": "6d08f4fcdfee6b25",
+  "active": "4652d18e10e54549",
   "lastOpenFiles": [
+    "Benigo 2003.md",
+    "Bigram Modeling (Neural Networks).md",
     "Broadcasting Semantics.md",
     "Makemore.md",
     "Untitled.base",
     "Untitled 1.base",
-    "Bigram Modeling (Neural Networks).md",
     "Bigram Model (Statistical Model).md",
     "Bigram Modeling (Neural Networks.md",
-    "Untitled.md",
     "Pasted image 20260418153826.png",
     "Pasted image 20260417031344.png"
   ]
