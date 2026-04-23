@@ -1,7 +1,7 @@
 We first start with a 
-a feature list : xs
+a feature list : `xs`
 And 
-a label list : ys
+a label list : `ys`
 
 ```python
 xs = []
@@ -23,9 +23,9 @@ for w in words:
 ```
 
 For example,
-in .emma.
-xs will contain `[., e, m, m, a]`
-ys will contain `[e, m, m, a, .]`
+in `.emma.`
+`xs` will contain `[., e, m, m, a]`
+`ys` will contain `[e, m, m, a, .]`
 
 The model shall learn if it encounters `xs[0] i.e. '.'` there shall be a very high probability of `ys[0] i.e 'e'` being the next character.
 

@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "0b66adc04c987823",
+        "id": "353a7a03209f4266",
         "type": "tabs",
         "children": [
           {
-            "id": "4652d18e10e54549",
+            "id": "5a01a405308a51b1",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -74,8 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "453388aa38d489dc",
@@ -91,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Makemore.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -101,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Makemore"
+              "title": "Backlinks"
             }
           },
           {
@@ -110,12 +108,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Makemore.md",
+                "file": "Multi-Layer Perceptron (Base).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Makemore"
+              "title": "Outgoing links from Multi-Layer Perceptron (Base)"
             }
           },
           {
@@ -153,20 +151,20 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Makemore.md",
+                "file": "Multi-Layer Perceptron (Base).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Makemore"
+              "title": "Outline of Multi-Layer Perceptron (Base)"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 350.5,
     "collapsed": true
   },
   "left-ribbon": {
@@ -180,15 +178,20 @@
       "bases:Create new base": false
     }
   },
-  "active": "4652d18e10e54549",
+  "active": "5a01a405308a51b1",
   "lastOpenFiles": [
-    "Benigo 2003.md",
-    "Bigram Modeling (Neural Networks).md",
-    "Broadcasting Semantics.md",
+    "Multi-Layer Perceptron (Base).md",
     "Makemore.md",
-    "Untitled.base",
-    "Untitled 1.base",
     "Bigram Model (Statistical Model).md",
+    "Untitled.base",
+    "Bigram Model (Neural Networks).md",
+    "Broadcasting Semantics.md",
+    "Benigo 2003.md",
+    "Untitled 1.base",
+    "Monotonic Function.md",
+    "2026-04-23.md",
+    "Untitled 3.base",
+    "Untitled 2.base",
     "Bigram Modeling (Neural Networks.md",
     "Pasted image 20260418153826.png",
     "Pasted image 20260417031344.png"
