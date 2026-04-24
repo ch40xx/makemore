@@ -11,10 +11,14 @@
             "id": "5a01a405308a51b1",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Multi-Layer Perceptron (Base).md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Multi-Layer Perceptron (Base)"
             }
           }
         ]
@@ -180,20 +184,21 @@
   },
   "active": "5a01a405308a51b1",
   "lastOpenFiles": [
+    "Bigram Model (Neural Networks).md",
     "Multi-Layer Perceptron (Base).md",
+    "Embedding.md",
+    "Benigo 2003.md",
+    "Untitled.base",
+    "Pasted image 20260417031344.png",
+    "Pasted image 20260418153826.png",
+    "Monotonic Function.md",
     "Makemore.md",
     "Bigram Model (Statistical Model).md",
-    "Untitled.base",
-    "Bigram Model (Neural Networks).md",
     "Broadcasting Semantics.md",
-    "Benigo 2003.md",
     "Untitled 1.base",
-    "Monotonic Function.md",
     "2026-04-23.md",
     "Untitled 3.base",
     "Untitled 2.base",
-    "Bigram Modeling (Neural Networks.md",
-    "Pasted image 20260418153826.png",
-    "Pasted image 20260417031344.png"
+    "Bigram Modeling (Neural Networks.md"
   ]
 }

@@ -83,6 +83,7 @@ z_i : logits
 
 $$
 
+
 ```python
 counts = logits.exp() # Equivalent to N of the statistical model
 probs = counts / counts.sum(1,keepdims=True)
