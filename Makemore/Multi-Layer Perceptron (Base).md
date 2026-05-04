@@ -1,4 +1,4 @@
-We enlist a two layer neural network which consists of one hidden layer and one output layer.
+aalWe enlist a two layer neural network which consists of one hidden layer and one output layer.
 The following is almost the same as before in [[Bigram Model (Neural Networks)]] for initializing the dataset building lookup tables.
 
 First, we initialize two lists `X` and `Y`.
@@ -31,7 +31,7 @@ Then we loop over the words to populate and build a dataset. Before we do that l
 # Helpers
 chars = sorted(list(set(''.join(words))))
 stoi = {s:i for i,s in enumerate(chars)}
-itos = {i:s for s,i in stoi.item()}
+itos = {i:s for s,i in stoi.items()}
 ```
 
 ```python
@@ -120,7 +120,7 @@ E = [
 ```
 *C is being indexed by S in the above mentioned way.*
 
-Moving forward now we have in our had x_embedded(`x_emb`). This is what we will work with as input for the rest of our network.
+Moving forward now we have in our hand x_embedded(`x_emb`). This is what we will work with as input for the rest of our network.
 
 And to initialize a network we have to define a neuron.
 A neuron is defined as: $$ Neuron : f\space (\space\sum_{i}\space w_ix_i + b \space)$$
@@ -148,9 +148,38 @@ B1 = torch.randn((n_neurons))
 ### Hidden Layer Forward Pass
 
 The first step in this layer would be to find the product of the `x_emb` and `W1`.
-But matrix multiplication requires the dimensions to be accurate and the shape mismatch results in error.
 
-Recalling what we previously had,
+
+But we need to flatten the embeddings before the linear layer.
+### Why?
+
+Our context window is 3 characters: `e m m`. Each character gets looked up in the embedding table `C` and comes out as a small vector, say of size 2:
+
+```python
+e  →  [0.2,  0.5]
+m  →  [-0.3, 0.9]
+m  →  [-0.3, 0.9]
+```
+
+So your `x_emb` for this one example has shape `[3, 2]` — three characters, each with 2 numbers.
+
+Now here's the key question: **what should the hidden layer receive?**
+
+If we feed each embedding _separately_, the neuron looking at `e`'s embedding would have no idea that `m` and `m` came after it. It would be blind to the context. It would only ever see one character at a time, which makes it no better than the bigram model.
+
+The whole point of the MLP upgrade was to give the model _more context_. So to hand the network all three embeddings _at once_, as a single input vector:
+
+```python
+# Flatten It
+[0.2, 0.5, -0.3, 0.9, -0.3, 0.9]
+       ↑ e       ↑ m        ↑ m
+```
+
+Now a single neuron in `W1` can have a weight for _each position_, meaning it can learn things like: "when position 1 looks like `e` AND position 2 looks like `m`, fire strongly." That's what learning character interactions means. The flattening is what _enables_ the hidden layer to reason about combinations, not just individual characters.
+
+The `view(-1, block_size * n_embedding)` is just the mechanical step that performs this flattening. The _why_ is that you're giving the network the full picture at once.
+
+Also, recalling what we previously had,
 The shape of  `x_emb` is `[ batch_size, context_size, embedding_size]` i.e. `[5, 3,2]`.
 
 According to matrix multiplication, we cannot multiply `[5, 3, 2]` @ `[6, 100]`. also, the `6` was inferred by multiplying the `block_size` with `n_embeddings` which happens to be the dimensions of our `x_emb` matrix. [Why ?](#Why-block_size-*-n_embedding-is-used-as-the-neurons-dimension?)
@@ -181,7 +210,7 @@ There are several methods to achieve this:
 
 - Manual Method
 ```python
-torch.concat(x_emb[:,0,:],x_emb[:,1,:],x_emb[:,2,:],dim=1)
+torch.cat([x_emb[:,0,:],x_emb[:,1,:],x_emb[:,2,:]],dim=1)
 ```
 
 ```python
@@ -196,7 +225,7 @@ print(x_emb[:,0,:],x_emb[:,1,:],x_emb[:,2,:])
 
 - Unbind Method
 ```python
-torch.cat(torch.unbind(emb,1),1)
+torch.cat(torch.unbind(x_emb,1),1)
 ```
 
 This method comes with it cons as it generates and stores are new tensor in the memory.
@@ -208,12 +237,8 @@ PyTorch store every tensor in a one dimension row vector.
 x_emb.storage()
 ```
 
-
-
-
-
 ```python
-preact = x_emb.view(-1,1) @ W1 + B1
+preact = x_emb.view(-1, block_size * n_embedding) @ W1 + B1
 ```
 Learn more about [torch.view()](https://www.geeksforgeeks.org/python/how-does-the-view-method-work-in-python-pytorch/)
 
@@ -231,7 +256,7 @@ Lets define the output layer's:
 
 ```python
 W2 = torch.randn((n_neurons,vocab_size))
-B2 = torch.randn((n_neurons))
+B2 = torch.randn((vocab_size)) # Note: Bias should match output dimension
 ```
 
 Then we calculate the log-counts:
@@ -243,15 +268,130 @@ For the activation function, we are going to use softmax.
 
 ```python
 counts = logits.exp()
-probs = counts / counts.sum(0, keepdim=True)
+probs = counts / counts.sum(1, keepdim=True) # Note: sum over dimension 1
 ```
 
 At last, for the loss function we are going to use, **negative log likelihood**.
 
 ```python
-loss = -probs[torch.range(X.shape[0]),Y].log().mean()
+loss = -(probs[torch.arange(X.shape[0]), Y]).log().mean()
 ```
 
+We first get the probability for each of the labels of Y and using a negative log likelihood we calculate the mean of the likelihood then we try to get it closest to 0 so the probability goes up to 1 or close enough.
+
+Here comes the great **`back propagation`.**
+```python
+loss.backward()
+```
+
+*Note: We have to initialize the gradients to zero every time we update the weights. so that the gradients don't get accumulated.*
 
 
+##### Updating the Parameters.
+
+We have several parameters till this point:
+
+```python
+g = torch.Generator().manual_seed(2147483647)
+C = torch.randn((27,2),generator=g)
+W1 = torch.randn((6,100), generator=g)
+b1 = torch.randn(100, generator=g)
+W2 = torch.randn((100,27), generator=g)
+b2 = torch.randn(27,generator=g)
+parameters = [C, W1, b1, W2, b2]
+```
+
+Before the executing the back propagation.
+We have to turn the `requires_grad=True`.
+
+Then the gradients must be turned to zero.
+```python
+for p in parameters:
+	p.grad = None
+# Then we do,
+loss.backward()
+```
+
+For updating the parameters:
+```python
+for p in parameters:
+	p.data += -0.01 * p.grad
+```
+ 
+ Here, the `0.01` is the [[Learning Rate]] value. we use the (-) sign to always reduce the loss. Learning Rate is extremely important as it quite literally determines at what rate the model learns the features. 
+ 
+ *Note: Too much learning rate can introduced noise in the model, while too little can be quite slow for the model to learn the features.*
+
+# Mini-Batch Construction
+
+We are using the whole dataset for the forward pass. This can result in a heavy load to the computer when training in large datasets. In order to make it effective yet fast we train the data in batches, so the training time reduces for each run.
+```python
+torch.randint(low=0,high=X.shape[0],size=(batch_size,))
+```
+
+We then get a `1D` tensor of `batch_size = 43` randomly chosen integers chosen integers to be the inputs for the embedding matrix.
+
+# TRAIN, VAL/DEV, TEST SPLIT
+
+It is also not the best idea to let the model learn from every single item from the dataset. We need to split it to test its real metrics.
+
+So, we split this into 3 portions:
+**Train :** *80%*
+**Val :** *10%*
+**Test :** *10%*
+
+We use the **80% Training Split** of the data to train the model
+We use the **10% Validation Split** to check the accuracy and other metrics of the model this is still largely unseen by the model but can be used to infer proper metrics.
+We use the **10% Test Split** to check the final metrics of the model. Usually this is ran only once to keep the model from learning from unseen data.
+
+```python
+import random
+random.seed(42)
+random.shuffle(words)
+n1 = int(0.8 * len(words))
+n2 = int(0.9 * len(words))
+
+Xtr, Ytr = build_dataset(words[:n1])
+Xdev, Ydev= build_dataset(words[n1:n2])
+Xte, Yte = build_dataset(words[n2:])
+```
+
+With this we can now use the training set along with the mini batches to train the model.
+```python
+ix = torch.randint(0, Xtr.shape[0], (32,))
+    
+# Forward Pass
+x_emb = C[Xtr[ix]]
+h = torch.tanh(x_emb.view(-1,6) @ W1 + b1)
+logits = h @ W2 + b2
+loss = F.cross_entropy(logits,Ytr[ix])
+print(loss.item())
+
+# Back Propagation
+for p in parameters:
+	p.grad = None
+loss.backward()
+
+# Update
+learning_rate = 0.001 if i < 50000 else 0.0001
+for p in parameters:
+	p.data += -learning_rate * p.grad
+```
+*Note: Here we train the model while keeping track of the each mini-batch loss.*
+
+```python
+# Loss Calculation For Whole Training SET
+x_emb = C[Xtr]
+h = torch.tanh(x_emb.view(-1,6) @ W1 + b1)
+logits = h @ W2 + b2
+loss = F.cross_entropy(logits,Ytr)
+print(loss.item())
+
+# Loss Calculation For Unseen Validation SET
+x_emb = C[Xdev]
+h = torch.tanh(x_emb.view(-1,6) @ W1 + b1)
+logits = h @ W2 + gb2
+loss = F.cross_entropy(logits,Ydev)
+print(loss.item())
+```
 

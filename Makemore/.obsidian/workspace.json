@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "353a7a03209f4266",
+        "id": "b4ad9f581d076358",
         "type": "tabs",
         "children": [
           {
-            "id": "5a01a405308a51b1",
+            "id": "16c91eaad4b2628a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Multi-Layer Perceptron (Base).md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Multi-Layer Perceptron (Base)"
+              "title": "New tab"
             }
           }
         ]
@@ -78,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "453388aa38d489dc",
@@ -182,10 +179,11 @@
       "bases:Create new base": false
     }
   },
-  "active": "5a01a405308a51b1",
+  "active": "16c91eaad4b2628a",
   "lastOpenFiles": [
-    "Bigram Model (Neural Networks).md",
     "Multi-Layer Perceptron (Base).md",
+    "Bigram Model (Statistical Model).md",
+    "Bigram Model (Neural Networks).md",
     "Embedding.md",
     "Benigo 2003.md",
     "Untitled.base",
@@ -193,7 +191,6 @@
     "Pasted image 20260418153826.png",
     "Monotonic Function.md",
     "Makemore.md",
-    "Bigram Model (Statistical Model).md",
     "Broadcasting Semantics.md",
     "Untitled 1.base",
     "2026-04-23.md",
