@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "b4ad9f581d076358",
+        "id": "96ff6af8f9df1692",
         "type": "tabs",
         "children": [
           {
-            "id": "16c91eaad4b2628a",
+            "id": "aca0de0e50122411",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Bigram Model (Neural Networks).md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Bigram Model (Neural Networks)"
             }
           }
         ]
@@ -74,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "453388aa38d489dc",
@@ -179,16 +182,27 @@
       "bases:Create new base": false
     }
   },
-  "active": "16c91eaad4b2628a",
+  "active": "aca0de0e50122411",
   "lastOpenFiles": [
-    "Multi-Layer Perceptron (Base).md",
-    "Bigram Model (Statistical Model).md",
+    "Multi-Layer Perceptron (Optimized).md",
+    "Pasted image 20260512001051.png",
+    "Pasted image 20260511235746.png",
     "Bigram Model (Neural Networks).md",
+    "Bigram Model (Statistical Model).md",
+    "Pasted image 20260511210546.png",
+    "Pasted image 20260511210258.png",
+    "Pasted image 20260511210038.png",
+    "Pasted image 20260511152400.png.md",
+    "Pasted image 20260510172919.png",
+    "Pasted image 20260510215318.png",
+    "Pasted image 20260510172538.png",
+    "Pasted image 20260510171352.png",
+    "Pasted image 20260509114353.png",
+    "Multi-Layer Perceptron (Base).md",
+    "Brief Recap of Process & Ideas.md",
+    "Map.base",
     "Embedding.md",
     "Benigo 2003.md",
-    "Untitled.base",
-    "Pasted image 20260417031344.png",
-    "Pasted image 20260418153826.png",
     "Monotonic Function.md",
     "Makemore.md",
     "Broadcasting Semantics.md",

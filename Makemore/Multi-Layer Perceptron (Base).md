@@ -1,4 +1,4 @@
-aalWe enlist a two layer neural network which consists of one hidden layer and one output layer.
+We enlist a two layer neural network which consists of one hidden layer and one output layer.
 The following is almost the same as before in [[Bigram Model (Neural Networks)]] for initializing the dataset building lookup tables.
 
 First, we initialize two lists `X` and `Y`.
